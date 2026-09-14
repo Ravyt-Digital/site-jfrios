@@ -129,3 +129,4 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 Site institucional da J Frios validado para publicação no Cloudflare em setembro de 2026.\n\nBuild acionado após correção dos caminhos de inspeção (`**/*`).\n
 Teste de implantação automática.
+Reconexão GitHub–Cloudflare validada em 14 de setembro de 2026.
