@@ -1,2 +1,4 @@
 import type { MetadataRoute } from "next";
-export default function sitemap(): MetadataRoute.Sitemap { return [{ url: "/", lastModified: new Date(), changeFrequency: "monthly", priority: 1 },{ url: "/politica-de-privacidade", lastModified: new Date(), changeFrequency: "yearly", priority: .2 },{ url: "/termos-de-uso", lastModified: new Date(), changeFrequency: "yearly", priority: .2 }]; }
+const siteUrl = "https://site-jfrios.ravytdigital.workers.dev";
+const lastModified = new Date("2026-09-14T00:00:00.000Z");
+export default function sitemap(): MetadataRoute.Sitemap { return [{ url: siteUrl, lastModified, changeFrequency: "monthly", priority: 1 },{ url: `${siteUrl}/politica-de-privacidade`, lastModified, changeFrequency: "yearly", priority: .2 },{ url: `${siteUrl}/politica-de-cookies`, lastModified, changeFrequency: "yearly", priority: .2 },{ url: `${siteUrl}/termos-de-uso`, lastModified, changeFrequency: "yearly", priority: .2 }]; }

@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element -- images are manually optimized and dimensioned for this Cloudflare build */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Camera, Check, ChevronDown, Menu, PackageCheck, ShieldCheck, Snowflake, Truck, X } from "lucide-react";
 
 const instagram = "https://www.instagram.com/jfriosdistribuidor/";
@@ -13,19 +14,25 @@ const categories = [
 const audiences = ["Padarias e confeitarias", "Pizzarias", "Lanchonetes", "Restaurantes", "Mercados e mercearias", "Negócios de alimentação"];
 
 function Brand({ inverted = false }: { inverted?: boolean }) {
-  return <a href="#inicio" className={inverted ? "brand brand--footer" : "brand"} aria-label="J Frios Distribuidor — início"><img src="/logo-jfrios-original.png" alt="Logo original J Frios" /></a>;
+  return <a href="#inicio" className={inverted ? "brand brand--footer" : "brand"} aria-label="J Frios Distribuidor — início"><img src="/logo-jfrios-original.webp" alt="J Frios Distribuidor" width="1774" height="887" /></a>;
 }
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [cookies, setCookies] = useState(true);
-  return <main>
-    <header className="site-header"><div className="shell header-inner"><Brand /><nav className={open ? "nav nav--open" : "nav"} aria-label="Navegação principal">
+  const [cookies, setCookies] = useState(false);
+  useEffect(() => { const timer = window.setTimeout(() => setCookies(!localStorage.getItem("jfrios_cookie_consent")), 0); return () => window.clearTimeout(timer); }, []);
+  const saveCookieChoice = (choice: "accepted" | "rejected") => { localStorage.setItem("jfrios_cookie_consent", choice); setCookies(false); };
+  const organizationSchema = { "@context": "https://schema.org", "@type": "Organization", name: "J Frios Distribuidor", url: "https://site-jfrios.ravytdigital.workers.dev", logo: "https://site-jfrios.ravytdigital.workers.dev/logo-jfrios-original.webp", address: { "@type": "PostalAddress", addressLocality: "Tianguá", addressRegion: "CE", addressCountry: "BR" }, sameAs: [instagram] };
+  const websiteSchema = { "@context": "https://schema.org", "@type": "WebSite", name: "J Frios Distribuidor", url: "https://site-jfrios.ravytdigital.workers.dev", inLanguage: "pt-BR", publisher: { "@type": "Organization", name: "J Frios Distribuidor" } };
+  return <main id="conteudo">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+    <header className="site-header"><div className="shell header-inner"><Brand /><nav id="menu-principal" className={open ? "nav nav--open" : "nav"} aria-label="Navegação principal">
       <a href="#empresa" onClick={() => setOpen(false)}>A J Frios</a><a href="#produtos" onClick={() => setOpen(false)}>Produtos</a><a href="#diferenciais" onClick={() => setOpen(false)}>Diferenciais</a><a href="#atendimento" onClick={() => setOpen(false)}>Atendimento</a><a className="nav-cta" href={instagram} target="_blank" rel="noreferrer">Solicitar orçamento <ArrowRight size={16} /></a>
-    </nav><button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? "Fechar menu" : "Abrir menu"}>{open ? <X /> : <Menu />}</button></div></header>
+    </nav><button className="menu-button" type="button" onClick={() => setOpen(!open)} aria-controls="menu-principal" aria-expanded={open} aria-label={open ? "Fechar menu" : "Abrir menu"}>{open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button></div></header>
 
-    <section id="inicio" className="hero"><img className="hero-image" src="/hero-jfrios.webp" alt="Seleção de frios, laticínios e ingredientes em ambiente profissional de distribuição" /><div className="hero-overlay" /><div className="shell hero-content">
-      <p className="eyebrow eyebrow--light"><span /> Alimentos para o seu negócio</p><h1>Seu estoque abastecido.<br /><em>Seu negócio em movimento.</em></h1><p className="hero-copy">Produtos selecionados, atendimento próximo e distribuição pensada para quem trabalha todos os dias com alimentos.</p>
+    <section id="inicio" className="hero"><img className="hero-image" src="/hero-jfrios.webp" alt="Seleção de frios, laticínios e ingredientes para negócios de alimentação" width="2048" height="753" fetchPriority="high" /><div className="hero-overlay" /><div className="shell hero-content">
+      <p className="eyebrow eyebrow--light"><span /> J Frios Distribuidor</p><h1>Seu estoque abastecido.<br /><em>Seu negócio em movimento.</em></h1><p className="hero-copy">Distribuição de frios, laticínios, congelados, embutidos e ingredientes para quem produz e vende alimentos.</p>
       <div className="hero-actions"><a className="button button--red" href={instagram} target="_blank" rel="noreferrer">Falar com a J Frios <ArrowRight size={18} /></a><a className="text-link text-link--light" href="#produtos">Conhecer as linhas <ChevronDown size={17} /></a></div>
       <div className="hero-proof"><div><ShieldCheck /><span><strong>Qualidade</strong>na seleção</span></div><div><Snowflake /><span><strong>Cuidado</strong>no armazenamento</span></div><div><Truck /><span><strong>Agilidade</strong>na distribuição</span></div></div>
     </div></section>
@@ -45,8 +52,8 @@ export default function Home() {
 
     <section id="atendimento" className="section contact"><div className="shell contact-card"><div><p className="eyebrow eyebrow--light"><span /> Vamos conversar</p><h2>O que o seu negócio precisa hoje?</h2><p>Conte para nossa equipe quais produtos você procura. Vamos orientar seu atendimento e verificar a disponibilidade para a sua região.</p></div><div className="contact-action"><a className="button button--white" href={instagram} target="_blank" rel="noreferrer"><Camera size={19} /> Falar pelo Instagram</a><span>Atendimento comercial pelo perfil oficial @jfriosdistribuidor</span></div></div></section>
 
-    <footer><div className="shell footer-top"><div><Brand inverted /><p>Alimentos para o seu negócio.</p></div><div><p className="footer-label">Navegação</p><a href="#empresa">A J Frios</a><a href="#produtos">Produtos</a><a href="#diferenciais">Diferenciais</a></div><div><p className="footer-label">Atendimento</p><a href={instagram} target="_blank" rel="noreferrer">Instagram</a><a href="#atendimento">Fale com a equipe</a></div><div><p className="footer-label">Informações</p><a href="/politica-de-privacidade">Política de Privacidade</a><a href="/termos-de-uso">Termos de Uso</a></div></div><div className="shell footer-bottom"><span>© {new Date().getFullYear()} J Frios Distribuidor.</span><span>Todos os direitos reservados.</span></div></footer>
-    <a className="mobile-cta" href={instagram} target="_blank" rel="noreferrer"><Camera size={18} /> Solicitar atendimento</a>
-    {cookies && <aside className="cookie" aria-label="Preferências de cookies"><div><strong>Sua privacidade importa.</strong><p>Usamos cookies essenciais para melhorar sua experiência. Consulte nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.</p></div><div className="cookie-actions"><button className="cookie-secondary" onClick={() => setCookies(false)}>Recusar</button><button className="cookie-primary" onClick={() => setCookies(false)}>Aceitar</button></div></aside>}
+    <footer><div className="shell footer-top"><div><Brand inverted /><p>Alimentos para o seu negócio.</p><span>Tianguá, Ceará</span></div><div><p className="footer-label">Navegação</p><a href="#empresa">A J Frios</a><a href="#produtos">Produtos</a><a href="#diferenciais">Diferenciais</a></div><div><p className="footer-label">Atendimento</p><a href={instagram} target="_blank" rel="noreferrer">Instagram oficial</a><a href="#atendimento">Fale com a equipe</a></div><div><p className="footer-label">Informações</p><a href="/politica-de-privacidade">Política de Privacidade</a><a href="/politica-de-cookies">Política de Cookies</a><a href="/termos-de-uso">Termos de Uso</a><button className="footer-cookie-button" type="button" onClick={() => setCookies(true)}>Preferências de cookies</button></div></div><div className="shell footer-bottom"><span>© {new Date().getFullYear()} J Frios Distribuidor.</span><span>Todos os direitos reservados.</span></div></footer>
+    <a className="mobile-cta" href={instagram} target="_blank" rel="noreferrer" aria-label="Solicitar atendimento da J Frios pelo Instagram"><Camera size={18} aria-hidden="true" /> Solicitar atendimento</a>
+    {cookies && <aside className="cookie" aria-labelledby="cookie-title"><div><strong id="cookie-title">Sua privacidade importa.</strong><p>Este site armazena apenas sua escolha de consentimento. Consulte a <a href="/politica-de-cookies">Política de Cookies</a>.</p></div><div className="cookie-actions"><button className="cookie-secondary" type="button" onClick={() => saveCookieChoice("rejected")}>Recusar</button><button className="cookie-primary" type="button" onClick={() => saveCookieChoice("accepted")}>Aceitar</button></div></aside>}
   </main>;
 }
