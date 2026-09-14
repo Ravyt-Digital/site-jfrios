@@ -14,7 +14,7 @@ const categories = [
 const audiences = ["Padarias e confeitarias", "Pizzarias", "Lanchonetes", "Restaurantes", "Mercados e mercearias", "Negócios de alimentação"];
 
 function Brand({ inverted = false }: { inverted?: boolean }) {
-  return <a href="#inicio" className={inverted ? "brand brand--footer" : "brand"} aria-label="J Frios Distribuidor — início"><img src="/logo-jfrios-original.webp" alt="J Frios Distribuidor" width="1774" height="887" /></a>;
+  return <a href="#inicio" className={inverted ? "brand brand--footer" : "brand"} aria-label="J Frios Distribuidor — início"><img src="/logo-jfrios-original.webp?v=2" alt="J Frios Distribuidor" width="1774" height="887" /></a>;
 }
 
 export default function Home() {
